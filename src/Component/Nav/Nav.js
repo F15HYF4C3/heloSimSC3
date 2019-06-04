@@ -1,11 +1,18 @@
 import React from 'react';
 import './Nav.css';
+import '../../routes.js'
 
 const Nav = (props) =>{
+    const navMenu = props.navMen.map((e, i)=>{
+        return <div key={e[i]}>
+            
 
+        </div>
+    })
     return (
         <div>
-            <h1>Nav</h1>
+            <section>{navMenu}</section>
+            <h1>You are on page {this.props.location.pathname}</h1>
         </div>
     )
 }
