@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import { HashRouter as Router, Switch } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 // import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import routes from './routes.js'
 import './App.css';
@@ -14,7 +14,22 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      navMen: [routes]
+      navMen: [
+        {
+          id: 1,
+          email: "",
+          full_name: "",
+          username: "",
+          user_password: ""
+        },
+        {
+          id:2,
+          email: "",
+          full_name: "",
+          username: "",
+          user_password: ""
+        }
+      ]
 
     }
   }
@@ -30,8 +45,8 @@ render() {
     
     <div className="App">
       <Router>
-        <Nav/>
-        <routes/>
+        <Nav display='inline' routes={this.props.navMenu}/>
+        <Route component={routes}/>
         <Switch>
           
         </Switch>

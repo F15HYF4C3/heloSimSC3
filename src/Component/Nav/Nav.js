@@ -1,9 +1,9 @@
 import React from 'react';
 import './Nav.css';
-import '../../routes.js'
+import  routes from '../../routes.js';
 
 const Nav = (props) =>{
-    const navMenu = props.navMen.map((e, i)=>{
+    const navMenu = props.routes.map((e, i)=>{
         return <div key={e[i]}>
             
 
