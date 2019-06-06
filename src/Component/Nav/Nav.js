@@ -1,19 +1,23 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './Nav.css';
-import  routes from '../../routes.js';
 
-const Nav = (props) =>{
-    const navMenu = props.routes.map((e, i)=>{
-        return <div key={e[i]}>
-            
 
+class Nav extends Component {
+   
+  
+    render() {
+      const { location } = this.props
+  
+      return (
+        <div className="navMen">Nav
+        <button>Home</button>
+        <button>NewPost</button>
+        <button>Logout</button>
         </div>
-    })
-    return (
-        <div>
-            <section>{navMenu}</section>
-            <h1>You are on page {this.props.location.pathname}</h1>
-        </div>
-    )
-}
+      )
+    }
+  }
+  
+  // export default withRouter(Child)
+
 export default Nav

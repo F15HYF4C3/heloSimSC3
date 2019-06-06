@@ -1,0 +1,16 @@
+.navMen {
+background-image: linear-gradient(99deg,#ff70a6,#ff9770 40%,#ffd670 73%,#e9ff70);
+width: 100px;
+height: 100vh;
+justify-content: space-around;
+position: fixed;
+top: 0;
+left: 0;
+
+padding-top: 10px;
+box-shadow: 0 10px 10px 0 rgba(0,0,0,.26);
+display: flex;
+align-items: inherit;
+vertical-align: baseline;
+flex-direction: column; 
+}
