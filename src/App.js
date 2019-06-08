@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
-import axios from 'axios';
+// import axios from 'axios';
+import { createStore, compose } from 'redux';
+import { Provider } from 'react-redux';
+import reducers from './ducks/reducer.js';
 import {Switch, Route, withRouter } from 'react-router-dom';
-// import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './App.css';
 import Nav from './Component/Nav/Nav';
 import Auth from './Component/Auth/Auth';

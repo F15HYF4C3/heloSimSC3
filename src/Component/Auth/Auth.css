@@ -14,7 +14,7 @@
     vertical-align: baseline;
 }
 .login-box {
-    height: 35%;
+    height: 55%;
     width: 60%;
     background-image: inherit;
     border-radius: 10px;
@@ -29,7 +29,13 @@
 
 input {
     display: flex;
-    
     justify-content: space-between;
     width: 55%;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    padding-block: 20px;
+    flex-direction: row;
 }
