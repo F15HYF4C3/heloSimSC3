@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt');
 
-module.exports = { 
+module.exports = {
+    
+    
     login: (req, res, next) => {
         const dbQuery = req.app.get('db')
         const {username, user_password} = req.body;
@@ -32,10 +34,11 @@ module.exports = {
         const dbQuery = req.app.get('db');
         const {username, user_password} = req.body;
         
+        // let newUser;
         dbQuery.users.findOne({username})
-            .then((user)=>{
-                if(user){
-                    // currentUser = req.body;
+            .then((users)=>{
+                if(users){
+                    currentUser = users;
                      throw(`Sorry ${username} username already exists. Please login.`)
                         }else{
                             return bcrypt.hash(user_password, saltRounds);
@@ -46,12 +49,12 @@ module.exports = {
                     username, 
                     user_password:hash
                 })
-                .then((user)=>{
+              })
+              .then((user)=>{
                 delete user.user_password;
                 req.session.user = user;
                 res.send('Thank you for registering!')
-            })
-              }) 
+                })
             
             .catch((err)=>{
                 res.send(err)
