@@ -16,8 +16,8 @@ class Auth extends Component {
     login = (event) =>{
         event.preventDefault();
         const credentials = {
-            username: this.setState.username,
-            user_password: this.setState.user_password
+            username: this.state.username,
+            user_password: this.state.user_password
         }
         axios.post('/api/login', credentials)
         .then((authorize)=>{
@@ -36,19 +36,24 @@ class Auth extends Component {
     register = (event) =>{
         event.preventDefault();
         const newUser = {
-            username: this.setState.username,
-            user_password: this.setState.user_password
+            username: this.state.username,
+            user_password: this.state.user_password
         }
         axios.post('/api/register', newUser)
+        
         .then((newVisit)=>{
-            if(newVisit.data.success){
+            if(newVisit.data.register){
+                
                 this.props.dispatch({
                     type: 'users',
                     payload: newVisit.data.users
+                    
                 })
                 this.props.history.push('/dashboard');
+                
             }else{
-                alert('This user already exists, please proceed to login page.')
+                // console.log(resp);
+                // alert('This user already exists, please proceed to login page.')
             }
         })
     }
@@ -57,30 +62,41 @@ class Auth extends Component {
     
 
     handleChange = (e) => {
-      
+      console.log("hit")
         this.setState({
             [e.target.name]: e.target.value
         })
     }
 
     render(){
-        console.log("Auth Loaded")
+       
     return ( 
     
 <div className="login">
 {/* <form onSubmit={this.login}> */}
-<h1>Auth</h1>
-<div className="login-box">Helo
+    <h1>Auth</h1>
+    <div className="login-box">Helo
 
-<input type="text" placeholder="Username" name="Username" onChange={this.handleChange} value={this.setState.username} />
+        <input 
+        type="text" 
+        placeholder="Username" 
+        name="username" 
+        onChange={this.handleChange} 
+        value={this.state.username} />
 
-<input type="text" placeholder="Password" name="Password" onChange={this.handleChange} value={this.setState.user_password} />
+        <input 
+        type="password" 
+        placeholder="Password" 
+        name="user_password" 
+        onChange={this.handleChange} 
+        value={this.state.user_password} />
 
-<div className="buttons">
-<button type="submit" onClick={this.login}>Login</button>
-<button type="submit" onClick={this.register} >Register</button>
-</div>
-</div>
+        <div className="buttons">
+            <button type="submit" onClick={this.login}>Login</button>
+            <button type="submit" onClick={this.register} >Register</button>
+        </div>
+
+    </div>
 {/* </form> */}
 </div>
 

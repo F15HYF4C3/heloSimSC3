@@ -2,11 +2,11 @@ const bcrypt = require('bcrypt');
 
 module.exports = { 
     login: (req, res, next) => {
-        const db = req.app.get('db')
+        const dbQuery = req.app.get('db')
         const {username, user_password} = req.body;
 
         let currentUser;
-        db.users.findOne({username})
+        dbQuery.users.findOne({username})
             .then((users)=>{
                 if(users){
                     currentUser = users;
@@ -29,26 +29,30 @@ module.exports = {
     },
     
     register: (req, res, next) => {
-        const db = req.app.get('db');
-    
+        const dbQuery = req.app.get('db');
         const {username, user_password} = req.body;
-   
-        db.users.findOne({username})
-            .then((users)=>{
-                if(users){
-                   throw('Sorry this username already exists. Please login.')
-                }else{ 
-                    return bcrypt.hash(user_password, saltRounds);
-                }
-            })
+        
+        dbQuery.users.findOne({username})
+            .then((user)=>{
+                if(user){
+                    // currentUser = req.body;
+                     throw(`Sorry ${username} username already exists. Please login.`)
+                        }else{
+                            return bcrypt.hash(user_password, saltRounds);
+                        }
+                    })
             .then((hash) => {
-                return db.users.insert({username, user_password:hash})
-              }) 
-            .then((users)=>{
-                delete users.user_password;
-                req.session.users = users;
+                return dbQuery.users.insert({
+                    username, 
+                    user_password:hash
+                })
+                .then((user)=>{
+                delete user.user_password;
+                req.session.user = user;
                 res.send('Thank you for registering!')
             })
+              }) 
+            
             .catch((err)=>{
                 res.send(err)
             })
