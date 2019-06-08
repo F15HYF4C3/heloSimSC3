@@ -7,10 +7,10 @@ module.exports = {
 
         let currentUser;
         db.users.findOne({username})
-            .then((user)=>{
-                if(user){
-                    currentUser = user;
-                    return bcrypt.compare(user_password, user.user_password)  
+            .then((users)=>{
+                if(users){
+                    currentUser = users;
+                    return bcrypt.compare(user_password, users.user_password)  
                 }else{
                     throw("User does not exist!")
                 }
@@ -18,7 +18,7 @@ module.exports = {
             .then((verified)=>{
                 if(verified){
                     delete currentUser.user_password
-                    res.send({success: true, user:currentUser})
+                    res.send({success: true, users:currentUser})
                 }else{
                     throw('The username or password was incorrect.')
                 }
@@ -34,8 +34,8 @@ module.exports = {
         const {username, user_password} = req.body;
    
         db.users.findOne({username})
-            .then((user)=>{
-                if(user){
+            .then((users)=>{
+                if(users){
                    throw('Sorry this username already exists. Please login.')
                 }else{ 
                     return bcrypt.hash(user_password, saltRounds);
@@ -44,9 +44,9 @@ module.exports = {
             .then((hash) => {
                 return db.users.insert({username, user_password:hash})
               }) 
-            .then((user)=>{
-                delete user.user_password;
-                req.session.user = user;
+            .then((users)=>{
+                delete users.user_password;
+                req.session.users = users;
                 res.send('Thank you for registering!')
             })
             .catch((err)=>{
